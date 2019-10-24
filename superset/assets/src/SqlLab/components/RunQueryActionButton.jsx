@@ -61,6 +61,7 @@ export default function RunQueryActionButton(props) {
       <Button
         {...commonBtnProps}
         onClick={() => props.runQuery(true)}
+        // onclick={() => alert('hello')}
         key="run-async-btn"
         tooltip={t('Run query asynchronously (Ctrl + ↵)')}
         disabled={!props.sql.trim()}
@@ -72,6 +73,7 @@ export default function RunQueryActionButton(props) {
     <Button
       {...commonBtnProps}
       onClick={() => props.runQuery(false)}
+      // onclick={() => alert('hello')}
       key="run-btn"
       tooltip={t('Run query synchronously (Ctrl + ↵)')}
       disabled={!props.sql.trim()}
