@@ -24,6 +24,9 @@ import 'brace/theme/github';
 import 'brace/ext/language_tools';
 import ace from 'brace';
 import { areArraysShallowEqual } from '../../reduxUtils';
+// import input from "eslint-plugin-jsx-a11y/src/util/implicitRoles/input";
+import axios from 'axios';
+
 
 const langTools = ace.acequire('ace/ext/language_tools');
 
@@ -134,6 +137,11 @@ class AceEditorWrapper extends React.PureComponent {
     this.setState({ sql: text });
     this.props.onChange(text);
   }
+  onClick() {  // new addition
+    const text = document.getElementById('text-to-sql');
+    const url = 'http://10.141.221.222:8090/trans?question=' + text.value;
+    axios.get(url).then(response => this.onChange(response.data));
+  }
   getCompletions(aceEditor, session, pos, prefix, callback) {
     const completer = {
       insertMatch: (editor, data) => {
@@ -208,19 +216,32 @@ class AceEditorWrapper extends React.PureComponent {
   }
   render() {
     return (
-      <AceEditor
-        mode="sql"
-        theme="github"
-        onLoad={this.onEditorLoad.bind(this)}
-        onBlur={this.onBlur.bind(this)}
-        height={this.props.height}
-        onChange={this.onChange}
-        width="100%"
-        editorProps={{ $blockScrolling: true }}
-        enableLiveAutocompletion
-        value={this.state.sql}
-        annotations={this.getAceAnnotations()}
-      />
+      <div>
+        <input // new addition
+          type={'text'}
+          id={'text-to-sql'}
+          style={{ width: '400px' }}
+        />
+        <button // new addition
+          type={'button'}
+          onClick={this.onClick.bind(this)}
+        >
+          click
+        </button>
+        <AceEditor
+          mode="sql"
+          theme="github"
+          onLoad={this.onEditorLoad.bind(this)}
+          onBlur={this.onBlur.bind(this)}
+          height={this.props.height}
+          onChange={this.onChange}
+          width="100%"
+          editorProps={{ $blockScrolling: true }}
+          enableLiveAutocompletion
+          value={this.state.sql}
+          annotations={this.getAceAnnotations()}
+        />
+      </div>
     );
   }
 }

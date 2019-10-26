@@ -247,7 +247,6 @@ export function fetchQueryResults(query) {
 }
 
 export function runQuery(query) {
-    alert('hello')
   return function (dispatch) {
     dispatch(startQuery(query));
     const postPayload = {
