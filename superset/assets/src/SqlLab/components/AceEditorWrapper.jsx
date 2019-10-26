@@ -137,7 +137,7 @@ class AceEditorWrapper extends React.PureComponent {
     this.setState({ sql: text });
     this.props.onChange(text);
   }
-  onClick() {  // new addition
+  onClick() {  // new addition  h
     const text = document.getElementById('text-to-sql');
     const url = 'http://10.141.221.222:8090/trans?question=' + text.value;
     axios.get(url).then(response => this.onChange(response.data));
